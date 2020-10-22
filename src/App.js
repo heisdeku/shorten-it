@@ -1,14 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import './App.css';
-import Button from './Components/Button';
+import Home from './pages/Home';
+import MyLinks from './pages/MyLinks';
 
 function App() {
   return (
-    <div className="app-container">
-      <h2>Shorten It</h2>
-      <p>shorten all your links easily with shorten it</p>
-      <Button />
-    </div>
+    <Router>
+      <Switch>
+          <Route path="/mylinks" component={MyLinks} />
+          <Route path="/" component={Home} />          
+      </Switch>
+    </Router>
+  
   );
 }
 
