@@ -11,14 +11,17 @@ const Home = () =>
     <h2>Shorten <span class="bg">IT</span></h2>
       <p>Shorten all your links <span className="underline">with ease</span></p>
       <InputBox />
-      <Button />
+      <Button />      
+    </div>
+      <div className="container__result">
+        <Result
+          input='https://twitter.com/adeheka'
+          output='https://shrt.web/35fd23'
+        />
+      </div>  
       <p>
         <Link to="/mylinks">Check Out All Your Processed links</Link>
       </p>
-    </div>
-      <div className="container__result">
-        <Result />
-      </div>  
   </div>
 
 
