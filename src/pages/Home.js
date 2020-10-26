@@ -7,8 +7,8 @@ import Result from '../Components/Results/Result';
 class Home extends React.Component {
   state = {
     url: '',
-    processing: true, 
-    shortenedUrl: ''
+    processing: false, 
+    shortenedUrl: 'https://shrt.web/213sd3d'
   }
   updateInputBox = (e) => {
     let el = e.target;
@@ -20,14 +20,14 @@ class Home extends React.Component {
     console.log(url +' was shortened succesfully');
   }
   render() {
-    const { shortenedUrl } = this.state;
+    const { shortenedUrl, url, processing } = this.state;
     return (
       <div className="container">
         <div className="container__landing">
           <h2>Shorten <span className="bg">IT</span></h2>
           <p>Shorten all your links <span className="underline">with ease</span></p>
           <Form 
-            url={this.state.url}
+            url={url}
             onSubmit={this.shortenLink}
             updateBox={this.updateInputBox}
             />               
@@ -36,8 +36,8 @@ class Home extends React.Component {
           <h3>Work So Far</h3>
           { (shortenedUrl) ?
               <Result
-                input='https://twitter.com/adeheka'
-                output='https://shrt.web/35fd23'
+                input={url}
+                output={shortenedUrl}
             />
           : <p>You haven't used me yet<span role="img" aria-label="">😎</span></p>
           }          
