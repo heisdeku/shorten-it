@@ -2,7 +2,7 @@ import React from 'react'
 
 function Button() {
   return (
-    <button type="submit">Shorten Links</button>
+    <button type="submit">Shorten Link</button>
   )
 }
 
