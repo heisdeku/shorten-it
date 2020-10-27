@@ -2,7 +2,7 @@ import React from 'react'
 import './Result.css'
 function Result(props) {
   return (
-    <div class="result__inner">
+    <div className="result__inner">
       <div className="result__inner-input">
       <p>Link</p>
         <p className="input"><a target="_blank"href={props.input}>{props.input}</a></p>

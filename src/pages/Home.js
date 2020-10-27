@@ -15,9 +15,23 @@ class Home extends React.Component {
     this.setState({ url: el.value });
   }
   shortenLink = (e) => {
-    e.preventDefault()
-    let url = this.state.url;
-    console.log(url +' was shortened succesfully');
+    e.preventDefault();
+    const { url, shortenedUrl, processing } = this.state;
+    
+    fetch('https://cleanuri.com/api/v1/shorten', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: url,
+    })
+      .then(data => data.json())
+      .then(result => {
+        this.setState({ processing: true});
+        console.log(result)
+        this.setState({ processing: false})
+      })
+      .catch(error => console.log(error))
   }
   render() {
     const { shortenedUrl, url, processing } = this.state;
