@@ -29,7 +29,7 @@ class Home extends React.Component {
         if (response.status >= 400 && response.status <= 500) {
           console.log('Error while giving wrong parameter')
         }
-        response.json()
+        return response.json()
       })
       .then(result => {
           let result_url = result.result_url
