@@ -18,7 +18,7 @@ class Home extends React.Component {
     e.preventDefault();
     const { url } = this.state;
     let link = encodeURIComponent(url).replace(/%20/, '+');
-    fetch('https://cleanuri.com/api/v1/shorten', {
+    fetch('https://cors-anywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten', {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",        
