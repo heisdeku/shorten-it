@@ -1,13 +1,14 @@
 .container {
     padding-top: 50px;
     margin: 0 20px;
-    max-width: 1200px;
+    max-width: 100%;
     grid-template-columns: 100%;
     text-align: center;
     display: grid;
     grid-auto-columns: 100vh;
     grid-template-rows: 1fr 1fr 25%;
     grid-gap: 30px;
+    place-items: center;
 }
 
 .container * {
@@ -16,6 +17,7 @@
 
 .container__landing {
     margin: 0 20px;
+    width: 80%;
 }
 
 .bg {
@@ -80,9 +82,15 @@ button:hover {
     color: white;
 }
 
+@media (max-width: 500px) {
+    button {
+        width: 100%;
+    }
+}
+
 @media (min-width: 600px) and (max-width: 991px) {
     .container {
-        margin: 0 50px;
+        margin: 0 auto;
     }
 }
 

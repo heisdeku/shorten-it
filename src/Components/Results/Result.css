@@ -22,7 +22,7 @@
 
 @media (max-width: 500px) {
     .result__inner {
-        grid-template-columns: .5fr .5fr;
-        grid-gap: 8px;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 1fr;
     }
 }
