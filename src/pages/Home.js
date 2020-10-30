@@ -16,9 +16,9 @@ class Home extends React.Component {
   }
   shortenLink = (e) => {
     e.preventDefault();
-    const { url } = this.state;
+    const { url, result_url } = this.state;
     let link = encodeURIComponent(url).replace(/%20/, '+');
-    fetch('https://cleanuri.com/api/v1/shorten', {
+    fetch('https://cors-anywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten', {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",        
@@ -29,10 +29,12 @@ class Home extends React.Component {
         if (response.status >= 400 && response.status <= 500) {
           console.log('Error while giving wrong parameter')
         }
-        response.json()
+        return response.json()
       })
       .then(result => {
-          console.log(result)
+          let result_url = result.result_url
+          console.log(result_url)
+          this.setState({ result_url })
       })
       .catch(error => console.log(error))
   }

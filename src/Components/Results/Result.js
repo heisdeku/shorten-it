@@ -10,7 +10,7 @@ function Result(props) {
       <div className="result__inner-output">
         <p>Shortened Link</p>
         <p className="output">
-          <a target="_blank" href={props.output}>https://shrt.web/35fd23</a></p>
+          <a target="_blank" href={props.output}>{props.output}</a></p>
       </div>
     </div>
   )
