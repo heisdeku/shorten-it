@@ -8,7 +8,7 @@ class Home extends React.Component {
   state = {
     url: '',
     processing: false, 
-    result_url: 'https://shrt.web/fishtake'
+    result_url: ''
   }
   updateInputBox = (e) => {
     let el = e.target;
