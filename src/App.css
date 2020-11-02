@@ -17,7 +17,7 @@
 
 .container__landing {
     margin: 0 20px;
-    width: 80%;
+    width: 95%;
 }
 
 .bg {
@@ -95,9 +95,6 @@ button:hover {
 }
 
 @media (min-width: 992px) {
-    .container {
-        margin-left: 80px;
-    }
     input {
         height: 55px;
     }

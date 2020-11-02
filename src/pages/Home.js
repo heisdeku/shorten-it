@@ -26,17 +26,21 @@ class Home extends React.Component {
       body: 'url=' + link
     })
       .then(response => {
-        if (response.status >= 400 && response.status <= 500) {
-          console.log('Error while giving wrong parameter')
-        }
         return response.json()
       })
       .then(result => {
-          let result_url = result.result_url
-          console.log(result_url)
+          let result_url = result.result_url          
           this.setState({ result_url })
       })
       .catch(error => console.log(error))
+      
+  }
+  storeLinks = () => {
+    const { url, result_url } = this.state;
+    let urlArray = []
+    urlArray.push(url)
+    localStorage.setItem("url", urlArray)
+    localStorage.setItem("result", [result_url])
   }
   render() {
     const { result_url, url, processing } = this.state;
@@ -45,7 +49,8 @@ class Home extends React.Component {
         <div className="container__landing">
           <h2>Shorten <span className="bg">IT</span></h2>
           <p>Shorten all your links <span className="underline">with ease</span></p>
-          <Form 
+          <Form
+            onSubmitButtonClick={this.storeLinks}
             url={url}
             onSubmit={this.shortenLink}
             updateBox={this.updateInputBox}
@@ -53,7 +58,7 @@ class Home extends React.Component {
         </div>
         <div className="container__result">
           <h3>Work So Far</h3>
-          { (result_url) ?
+          { (url && result_url) ?
               <Result
                 input={url}
                 output={result_url}

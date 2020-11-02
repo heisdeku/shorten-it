@@ -1,8 +1,13 @@
 import React from 'react'
 
-function Button() {
+function Button({buttonClick}) {
   return (
-    <button type="submit">Shorten Link</button>
+    <button 
+      type="submit"
+      onClick={buttonClick}
+    >
+      Shorten Link
+    </button>
   )
 }
 

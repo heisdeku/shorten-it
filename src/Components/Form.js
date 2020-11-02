@@ -8,14 +8,16 @@ class Form extends React.Component {
     url: PropTypes.string,
   }
   render() {
-    const { onSubmit, url, updateBox } = this.props;
+    const { onSubmit, url, updateBox, onSubmitButtonClick } = this.props;
     return (
       <form onSubmit={onSubmit}>
         <InputBox 
             onChange={updateBox} 
             value={url} 
           />
-        <Button />
+        <Button
+          buttonClick={onSubmitButtonClick}
+        />
       </form>
     )
   }
