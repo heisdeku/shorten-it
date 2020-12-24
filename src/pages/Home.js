@@ -2,22 +2,21 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 import Form from '../Components/Form';
+import Loading from '../Components/Loading'
 import Result from '../Components/Results/Result';
 
 const Home = () => {
   const [url, setUrl] = useState('')  
   const [resultUrl, setResultUrl] = useState('')
-  const [processing, setProcessing] = useState(false)
   const [links, setLinks] = useState([])
 
-  localStorage.setItem("links", JSON.stringify(links))  
+   
 
-  const storeLinks = () => {             
+  const storeLinks = () => {   
+    localStorage.setItem("links", JSON.stringify(links))           
     if (url && resultUrl) {
       const final = { url, resultUrl}
-      setLinks(link => {
-        return [...link, final]
-      })
+      setLinks([...links, final])
     }   
   }
   const updateInputBox = (e) => {
@@ -37,11 +36,9 @@ const Home = () => {
       .then(response => {
         return response.json()
       })
-      .then(result => {
-          setProcessing(true)
+      .then(result => {          
           let result_url = result.result_url          
-          setResultUrl(result_url)
-          setProcessing(false)
+          setResultUrl(result_url)          
       })
       .catch(error => console.log(error))
       
@@ -60,7 +57,7 @@ const Home = () => {
           />               
       </div>
       <div className="container__result">
-        <h3>Work So Far</h3>
+        <h3>Work So Far</h3>        
         { (url && resultUrl) ?
             <Result
               input={url}
