@@ -1,22 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import Form from '../Components/Form';
 
+import Form from '../Components/Form';
 import Result from '../Components/Results/Result';
 
-class Home extends React.Component {
-  state = {
-    url: '',
-    processing: false, 
-    result_url: ''
+const Home = () => {
+  const [url, setUrl] = useState('')  
+  const [resultUrl, setResultUrl] = useState('')
+  const [processing, setProcessing] = useState(false)
+  const [links, setLinks] = useState([])
+
+  localStorage.setItem("links", JSON.stringify(links))  
+
+  const storeLinks = () => {             
+    if (url && resultUrl) {
+      const final = { url, resultUrl}
+      setLinks(link => {
+        return [...link, final]
+      })
+    }   
   }
-  updateInputBox = (e) => {
+  const updateInputBox = (e) => {
     let el = e.target;
-    this.setState({ url: el.value });
+    setUrl(el.value);        
   }
-  shortenLink = (e) => {
-    e.preventDefault();
-    const { url, result_url } = this.state;
+  const shortenLink = (e) => {
+    e.preventDefault();    
     let link = encodeURIComponent(url).replace(/%20/, '+');
     fetch('https://cors-anywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten', {
       method: "POST",
@@ -29,50 +38,44 @@ class Home extends React.Component {
         return response.json()
       })
       .then(result => {
+          setProcessing(true)
           let result_url = result.result_url          
-          this.setState({ result_url })
+          setResultUrl(result_url)
+          setProcessing(false)
       })
       .catch(error => console.log(error))
       
-  }
-  storeLinks = () => {
-    const { url, result_url } = this.state;
-    let urlArray = []
-    urlArray.push(url)
-    localStorage.setItem("url", urlArray)
-    localStorage.setItem("result", [result_url])
-  }
-  render() {
-    const { result_url, url, processing } = this.state;
-    return (
-      <div className="container">
-        <div className="container__landing">
-          <h2>Shorten <span className="bg">IT</span></h2>
-          <p>Shorten all your links <span className="underline">with ease</span></p>
-          <Form
-            onSubmitButtonClick={this.storeLinks}
-            url={url}
-            onSubmit={this.shortenLink}
-            updateBox={this.updateInputBox}
-            />               
-        </div>
-        <div className="container__result">
-          <h3>Work So Far</h3>
-          { (url && result_url) ?
-              <Result
-                input={url}
-                output={result_url}
-            />
-          : <p>You haven't used me yet<span role="img" aria-label="">😎</span></p>
-          }          
-        </div>  
-        <p>
-          <Link to="/mylinks">Check Out All Your Processed links</Link>
-        </p>
+      
+  }    
+  return (
+    <div className="container">
+      <div className="container__landing">
+        <h2>Shorten <span className="bg">IT</span></h2>
+        <p>Shorten all your links <span className="underline">with ease</span></p>
+        <Form
+          onSubmitButtonClick={storeLinks}
+          url={url}
+          onSubmit={shortenLink}
+          updateBox={updateInputBox}
+          />               
       </div>
-    )
+      <div className="container__result">
+        <h3>Work So Far</h3>
+        { (url && resultUrl) ?
+            <Result
+              input={url}
+              output={resultUrl}
+          />
+        : <p>You haven't used me yet<span role="img" aria-label="">😎</span></p>
+        }          
+      </div>  
+      <p>
+        <Link to="/mylinks">Check Out All Your Processed links</Link>
+      </p>
+    </div>
+  )
 }
-}
+  
 
 export default Home
 
