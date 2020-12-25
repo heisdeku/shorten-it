@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 import Form from '../Components/Form';
-import Loading from '../Components/Loading'
 import Result from '../Components/Results/Result';
 
 const Home = () => {
@@ -10,15 +9,16 @@ const Home = () => {
   const [resultUrl, setResultUrl] = useState('')
   const [links, setLinks] = useState([])
 
-   
-
-  const storeLinks = () => {   
-    localStorage.setItem("links", JSON.stringify(links))           
-    if (url && resultUrl) {
-      const final = { url, resultUrl}
-      setLinks([...links, final])
-    }   
-  }
+  useEffect(() => {
+    if (localStorage.getItem('links')) {      
+      setLinks(JSON.parse(localStorage.getItem('links')))
+    }
+  }, [])
+  useEffect(() => {    
+    if (links.length > 0) {
+      localStorage.setItem('links', JSON.stringify(links))
+    }
+  }, [links, setLinks])
   const updateInputBox = (e) => {
     let el = e.target;
     setUrl(el.value);        
@@ -38,7 +38,8 @@ const Home = () => {
       })
       .then(result => {          
           let result_url = result.result_url          
-          setResultUrl(result_url)          
+          setResultUrl(result_url)
+          setLinks([...links, {resultUrl: result_url, url}])          
       })
       .catch(error => console.log(error))
       
@@ -49,8 +50,7 @@ const Home = () => {
       <div className="container__landing">
         <h2>Shorten <span className="bg">IT</span></h2>
         <p>Shorten all your links <span className="underline">with ease</span></p>
-        <Form
-          onSubmitButtonClick={storeLinks}
+        <Form          
           url={url}
           onSubmit={shortenLink}
           updateBox={updateInputBox}
@@ -67,7 +67,7 @@ const Home = () => {
         }          
       </div>  
       <p>
-        <Link to="/mylinks">Check Out All Your Processed links</Link>
+        <Link to="/links">Check Out All Your Processed links</Link>
       </p>
     </div>
   )

@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Switch>
-          <Route path="/mylinks" component={MyLinks} />
+          <Route path="/links" component={MyLinks} />
           <Route path="/" component={Home} />          
       </Switch>
     </Router>
